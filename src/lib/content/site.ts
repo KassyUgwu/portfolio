@@ -43,7 +43,7 @@ export const site = {
 } as const;
 
 export const socials: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com/KasiePatricia" },
+  { label: "GitHub", href: "https://github.com/KassyUgwu" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/ugwu-kasie/" },
   { label: "X", href: "https://twitter.com/UgwuKasie" },
   { label: "CodePen", href: "https://codepen.io/Kasiepatricia" },
