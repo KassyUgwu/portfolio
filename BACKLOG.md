@@ -35,7 +35,7 @@ Nothing here should wait if the site is going live.
 - [ ] **Host it** (Vercel matches the stack). Preview + production.
 - [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the live origin in the host env (no trailing slash). Until this is set, canonicals, sitemap, robots, and OG URLs can resolve to localhost or a Vercel preview host.
 - [ ] **Confirm the production domain** (custom domain vs `*.vercel.app`) and keep `site.url` in lockstep.
-- [ ] **Smoke the production build locally:** `npm run build && npm run start`. Add an `npm run typecheck` script (`tsc --noEmit`) and run it in CI — it is not in `package.json` today.
+- [x] **Smoke the production build locally:** `npm run typecheck` and `npm run build` are in `package.json`. `npm run test:e2e` runs against `next start` on port 3010.
 
 ### Content that is still placeholder or fragile
 
@@ -56,36 +56,36 @@ Highest leverage remaining engineering work.
 There is no test runner, no `*.test.*` / `*.spec.*` files, and no Playwright/Vitest dependency. Do not add a full suite for a content site. Add the smallest set that would catch a real regression:
 
 1. **Unit (Vitest)** — content and URL helpers
-   - [ ] Unique project slugs; `getProject` / `getFeaturedProjects` / `getArchiveProjects` stay consistent with `featured`
-   - [ ] Every `links[].href` and social href is `http(s)` or `mailto:`
-   - [ ] `resolveSiteUrl` strips trailing slashes and prefers `NEXT_PUBLIC_SITE_URL`
-   - [ ] `ButtonLink` sets `rel="noopener noreferrer"` for `https` + `target="_blank"`, and does not force it on internal `/work` links
+   - [x] Unique project slugs; `getProject` / `getFeaturedProjects` / `getArchiveProjects` stay consistent with `featured`
+   - [x] Every `links[].href` and social href is `http(s)` or `mailto:`
+   - [x] `resolveSiteUrl` strips trailing slashes and prefers `NEXT_PUBLIC_SITE_URL`
+   - [x] `ButtonLink` sets `rel="noopener noreferrer"` for `https` + `target="_blank"`, and does not force it on internal `/work` links
 
 2. **Smoke (Playwright)** — one browser, Chromium is enough
-   - [ ] `/`, `/work`, `/about` return 200 and show the expected `h1`
-   - [ ] `/work/wicrypt` (and one other slug) render title + at least one external project link
-   - [ ] `/work/not-a-real-project` is 404
-   - [ ] Home featured cards: **one** link per project (no duplicate “image + title + read” links)
-   - [ ] Skip link is in the document; theme toggle changes `html` class or `color-scheme`
-   - [ ] Mobile: open menu, `aria-current="page"` on Work when URL is `/work` or `/work/[slug]`
+   - [x] `/`, `/work`, `/about` return 200 and show the expected `h1`
+   - [x] `/work/wicrypt` (and one other slug) render title + at least one external project link
+   - [x] `/work/not-a-real-project` is 404
+   - [x] Home featured cards: **one** link per project (no duplicate “image + title + read” links)
+   - [x] Skip link is in the document; theme toggle changes `html` class or `color-scheme`
+   - [x] Mobile: open menu, `aria-current="page"` on Work when URL is `/work` or `/work/[slug]`
 
 3. **Scripts**
-   - [ ] `npm test` (unit)
-   - [ ] `npm run test:e2e` (Playwright)
-   - [ ] Do not block local `dev` on e2e
+   - [x] `npm test` (unit)
+   - [x] `npm run test:e2e` (Playwright)
+   - [x] Do not block local `dev` on e2e
 
 ### CI
 
-- [ ] GitHub Actions (or the host’s CI) on PR and `main`: `lint`, `typecheck`, `build`
-- [ ] Run Playwright against the production build (`next start`) or `next build` output — not only `next dev`
-- [ ] `npm audit` (or `npm audit --omit=dev`) as a scheduled or PR check; do not fail the world on low noise, but do not ignore high/critical in runtime deps
+- [x] GitHub Actions on PR and `main`: `lint`, `typecheck`, `test`, `build`
+- [x] Playwright against the production build (`next start` on port 3010)
+- [x] `npm audit --omit=dev --audit-level=high` in CI
 
 ### Accessibility and UI debt
 
-- [ ] **Base UI `nativeButton` warning** on the header sheet. `SheetTrigger` / `SheetClose` render shadcn `Button` (Base UI button) instead of a native `<button>`. Fix composition so the menu trigger and close control are real buttons without nested-button semantics. Verify in the browser console after the fix.
-- [ ] **Keyboard pass:** Tab through header (skip link → logo → nav → theme → email), sheet open/close, featured card, case-study externals. Focus rings must stay visible on mobile nav links (desktop already has `focus-visible:ring`).
+- [x] **Base UI `nativeButton` warning** on the header sheet. Trigger and close are native buttons with `buttonVariants`, not nested shadcn `Button`s.
+- [ ] **Keyboard pass:** Tab through header (skip link → logo → nav → theme → email), sheet open/close, featured card, case-study externals. Mobile nav links now have `focus-visible:ring`; still worth a human pass.
 - [ ] **Contrast:** spot-check `muted-foreground` on `--background` in light and dark (body text ≥ 4.5:1). We darkened light muted text once; it has not been measured.
-- [ ] **404 metadata:** unknown slugs currently inherit the default site title (`Kasie Ugwu — Frontend Engineer`). Set a 404 title (layout or `not-found` metadata if the Next version supports it).
+- [x] **404 metadata:** `not-found.tsx` sets title “Page not found” and `robots: noindex`.
 - [ ] **Screen reader pass** on a featured card (one name, decorative image `alt=""` is intentional) and on About headings / experience list.
 
 ### SEO / share cards
@@ -103,7 +103,7 @@ There is no test runner, no `*.test.*` / `*.spec.*` files, and no Playwright/Vit
 
 ### App Router gaps
 
-- [ ] `src/app/error.tsx` (and optionally `global-error.tsx`) so a render failure is not a blank screen.
+- [x] `src/app/error.tsx` and `global-error.tsx` so a render failure is not a blank screen.
 - [ ] `loading.tsx` is **low value** here (pages are static). Skip unless a route becomes slow.
 
 ---
@@ -154,12 +154,12 @@ Do not pick these up as “production polish.” They are the wrong size for thi
 
 ## Suggested order
 
-1. Typecheck script + `next build`
-2. Git remote + Vercel + `NEXT_PUBLIC_SITE_URL`
-3. Playwright smoke (four routes + 404 + single card link)
-4. Vitest on content + `ButtonLink`
-5. CI: lint / typecheck / build
-6. Sheet button a11y warning
+1. ~~Typecheck script + `next build`~~
+2. Git remote ~~+ Vercel + `NEXT_PUBLIC_SITE_URL`~~ (Vercel and origin env still open)
+3. ~~Playwright smoke~~
+4. ~~Vitest on content + `ButtonLink`~~
+5. ~~CI: lint / typecheck / build~~
+6. ~~Sheet button a11y warning~~
 7. Real project stills + resume URL + OG crop
 8. Lighthouse on the live URL
 9. Everything in P2 only if something in P0/P1 is already done

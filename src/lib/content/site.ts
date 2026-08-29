@@ -1,6 +1,6 @@
 import type { SocialLink } from "./types";
 
-function resolveSiteUrl() {
+export function resolveSiteUrl() {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
   if (explicit) return explicit.replace(/\/$/, "");
 
@@ -53,6 +53,11 @@ export const nav = [
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
 ] as const;
+
+export function pathIsActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export const hero = {
   greeting: "Frontend engineer",

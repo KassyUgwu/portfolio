@@ -63,7 +63,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={80} className="lg:pt-10">
-            <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden rounded-2xl bg-muted lg:mx-0">
+            <div className="relative mx-auto aspect-4/5 max-w-sm overflow-hidden rounded-2xl bg-muted lg:mx-0">
               <Image
                 src="/images/people/kassy.jpg"
                 alt={`Portrait of ${site.name}`}

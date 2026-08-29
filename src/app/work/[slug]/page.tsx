@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: Props) {
 
       {project.image && (
         <Container className="mt-12 max-w-5xl">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-muted">
+          <div className="relative aspect-16/10 overflow-hidden rounded-2xl bg-muted">
             <Image
               src={project.image.src}
               alt={project.image.alt}

@@ -29,6 +29,14 @@ npm run build
 npm run start
 ```
 
+```bash
+npm run typecheck
+npm test
+npm run test:e2e
+```
+
+`test:e2e` starts a production server on port 3010, so it needs a prior `npm run build`.
+
 ## Notes
 
 - Resume currently points at the Canva link in `src/lib/content/site.ts`.

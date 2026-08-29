@@ -6,7 +6,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { ButtonLink } from "@/components/button-link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -15,8 +15,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { nav, site } from "@/lib/content";
+import { nav, pathIsActive, site } from "@/lib/content";
 import { cn } from "@/lib/utils";
+
+const navClassName = (active: boolean, compact: boolean) =>
+  cn(
+    "rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    compact ? "px-3 py-1.5 text-sm" : "py-2 text-base",
+    active
+      ? "text-foreground"
+      : "text-muted-foreground hover:text-foreground",
+  );
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -40,19 +49,13 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
           {nav.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const active = pathIsActive(pathname, item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={cn(
-                  "rounded-md px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
+                className={navClassName(active, true)}
               >
                 {item.label}
               </Link>
@@ -62,7 +65,7 @@ export function SiteHeader() {
             href={site.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={navClassName(false, true)}
           >
             Resume
           </a>
@@ -78,9 +81,9 @@ export function SiteHeader() {
           <ThemeToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              render={
-                <Button variant="ghost" size="icon-sm" aria-label="Open menu" />
-              }
+              nativeButton
+              className={buttonVariants({ variant: "ghost", size: "icon-sm" })}
+              aria-label="Open menu"
             >
               <Menu />
             </SheetTrigger>
@@ -94,32 +97,20 @@ export function SiteHeader() {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  aria-current={pathname === "/" ? "page" : undefined}
-                  className={cn(
-                    "rounded-md py-2 text-base hover:text-foreground",
-                    pathname === "/"
-                      ? "text-foreground"
-                      : "text-muted-foreground",
-                  )}
+                  aria-current={pathIsActive(pathname, "/") ? "page" : undefined}
+                  className={navClassName(pathIsActive(pathname, "/"), false)}
                 >
                   Home
                 </Link>
                 {nav.map((item) => {
-                  const active =
-                    pathname === item.href ||
-                    pathname.startsWith(`${item.href}/`);
+                  const active = pathIsActive(pathname, item.href);
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpen(false)}
                       aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "rounded-md py-2 text-base hover:text-foreground",
-                        active
-                          ? "text-foreground"
-                          : "text-muted-foreground",
-                      )}
+                      className={navClassName(active, false)}
                     >
                       {item.label}
                     </Link>
@@ -129,13 +120,13 @@ export function SiteHeader() {
                   href={site.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-md py-2 text-base text-muted-foreground hover:text-foreground"
+                  className={navClassName(false, false)}
                 >
                   Resume
                 </a>
                 <a
                   href={`mailto:${site.email}`}
-                  className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground"
+                  className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   Email me
                 </a>
