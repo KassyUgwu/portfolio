@@ -31,7 +31,7 @@ Nothing here should wait if the site is going live.
 
 ### Deploy and origin
 
-- [ ] **Create a git remote and push.** The repo is local `main` only. No GitHub/Cursor remote yet.
+- [x] **Create a git remote and push.** Public repo: [github.com/KassyUgwu/portfolio](https://github.com/KassyUgwu/portfolio). GitHub identity for this site is **KassyUgwu**, not KasiePatricia.
 - [ ] **Host it** (Vercel matches the stack). Preview + production.
 - [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the live origin in the host env (no trailing slash). Until this is set, canonicals, sitemap, robots, and OG URLs can resolve to localhost or a Vercel preview host.
 - [ ] **Confirm the production domain** (custom domain vs `*.vercel.app`) and keep `site.url` in lockstep.
