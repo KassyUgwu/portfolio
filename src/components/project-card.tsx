@@ -24,7 +24,7 @@ export function FeaturedProject({
       >
         <div
           className={cn(
-            "relative aspect-16/11 overflow-hidden rounded-2xl bg-muted lg:col-span-7",
+            "relative aspect-16/11 overflow-hidden rounded-2xl bg-muted lg:col-span-8",
             reverse && "lg:order-2",
           )}
         >
@@ -48,7 +48,7 @@ export function FeaturedProject({
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         </div>
 
-        <div className={cn("lg:col-span-5", reverse && "lg:order-1")}>
+        <div className={cn("lg:col-span-4", reverse && "lg:order-1")}>
           <p className="text-xs font-medium tracking-[0.18em] text-primary uppercase">
             {project.eyebrow}
           </p>

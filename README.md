@@ -1,6 +1,6 @@
 # Kasie Ugwu — Portfolio
 
-Personal site for **Kasie Ugwu**, a frontend engineer in Enugu, Nigeria.
+Personal site for **Kasie Ugwu**, a frontend engineer in Nigeria.
 
 The site is a product, not a template: who I am, what I build, how I think, and the work worth opening.
 
@@ -39,5 +39,5 @@ npm run test:e2e
 
 ## Notes
 
-- Resume currently points at the Canva link in `src/lib/content/site.ts`.
+- Resume is the PDF at `/kasie-ugwu-cv.pdf` (`site.resumeUrl` in `src/lib/content/site.ts`).
 - Set `NEXT_PUBLIC_SITE_URL` in production for canonical URLs and the sitemap.

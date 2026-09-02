@@ -1,6 +1,6 @@
 # Backlog
 
-Last reviewed: 29 August 2026.
+Last reviewed: 2 September 2026.
 
 This is remaining work for the Kasie Ugwu portfolio (`portfolio_2`). The site is a static Next.js App Router app. Content is typed TypeScript in `src/lib/content/`. There is no CMS, API, auth, or database — and there should not be, unless a real product need appears.
 
@@ -32,15 +32,16 @@ Nothing here should wait if the site is going live.
 ### Deploy and origin
 
 - [x] **Create a git remote and push.** Public repo: [github.com/KassyUgwu/portfolio](https://github.com/KassyUgwu/portfolio). GitHub identity for this site is **KassyUgwu**, not KasiePatricia.
-- [ ] **Host it** (Vercel matches the stack). Preview + production.
-- [ ] **Set `NEXT_PUBLIC_SITE_URL`** to the live origin in the host env (no trailing slash). Until this is set, canonicals, sitemap, robots, and OG URLs can resolve to localhost or a Vercel preview host.
-- [ ] **Confirm the production domain** (custom domain vs `*.vercel.app`) and keep `site.url` in lockstep.
+- [x] **Host it** (Vercel matches the stack). Preview + production. Live origin: [portfolio-missy-ella.vercel.app](https://portfolio-missy-ella.vercel.app).
+- [ ] **Bake `NEXT_PUBLIC_SITE_URL` into production.** The env is set in Vercel (`https://portfolio-missy-ella.vercel.app`, Config, Production), but the live build still emits Vercel’s generated host (`https://portfolio-three-topaz-71eye85nvu.vercel.app`) in canonicals, sitemap, robots, and OG. **Deployments → latest Production → Redeploy** (do not use an old build). Then confirm `/sitemap.xml` and the home canonical use `portfolio-missy-ella`.
+- [x] **Confirm the production domain.** Using [portfolio-missy-ella.vercel.app](https://portfolio-missy-ella.vercel.app) for now, not a custom domain. If a custom domain is added later, update `NEXT_PUBLIC_SITE_URL` and redeploy so `site.url` stays in lockstep.
+- [x] **Make production public.** Home, Work, About, and `/sitemap.xml` return 200 with no Vercel login.
 - [x] **Smoke the production build locally:** `npm run typecheck` and `npm run build` are in `package.json`. `npm run test:e2e` runs against `next start` on port 3010.
 
 ### Content that is still placeholder or fragile
 
 - [ ] **Replace SVG covers** for OHealth+, Sales Tracker, and Ayika with real product stills (or honest photography). Current files are decorative placeholders in `public/images/projects/`.
-- [ ] **Export a resume PDF** (or a stable personal URL) and point `site.resumeUrl` at it. Canva share links rot and carry tracking params.
+- [x] **Export a resume PDF** and point `site.resumeUrl` at it. Self-hosted at `/kasie-ugwu-cv.pdf` (replaces the Canva share link).
 - [ ] **OHealth+** still points at `https://dev.ohealthltd.com`. When a production URL exists, update the link and the “Site” label. Until then, leave the honest label.
 - [ ] **Sales Tracker** has no public URL. Add the site/app store link when it exists; do not invent one.
 - [ ] **Wicrypt token checkout** — add the public URL only after it ships. Do not paste staging.
@@ -116,7 +117,7 @@ Ship without these. Do them when they earn their keep.
 
 - [ ] Case-study stills or short captions beyond the cover (only if they add information).
 - [ ] When Sales Tracker’s website exists, add the link on the project page (the content model already supports `links: []`).
-- [ ] Self-host or snapshot the resume so the About CTA cannot 404.
+- [x] Self-host or snapshot the resume so the About CTA cannot 404. PDF is in `public/kasie-ugwu-cv.pdf`.
 - [ ] A one-line “last updated” on About or Work if the content will change often. Optional.
 - [ ] `package.json` `name` is still `portfolio_2` — rename if the public repo should match the person, not the folder.
 
@@ -155,12 +156,12 @@ Do not pick these up as “production polish.” They are the wrong size for thi
 ## Suggested order
 
 1. ~~Typecheck script + `next build`~~
-2. Git remote ~~+ Vercel + `NEXT_PUBLIC_SITE_URL`~~ (Vercel and origin env still open)
+2. Git remote + Vercel + public production URL — ~~protection~~; still need a Production **Redeploy** so canonicals match `portfolio-missy-ella`
 3. ~~Playwright smoke~~
 4. ~~Vitest on content + `ButtonLink`~~
 5. ~~CI: lint / typecheck / build~~
 6. ~~Sheet button a11y warning~~
-7. Real project stills + resume URL + OG crop
+7. Real project stills + OG crop
 8. Lighthouse on the live URL
 9. Everything in P2 only if something in P0/P1 is already done
 

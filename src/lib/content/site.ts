@@ -21,12 +21,11 @@ export const site = {
   shortName: "Kassy",
   title: "Kasie Ugwu — Frontend Engineer",
   description:
-    "Frontend engineer in Enugu, Nigeria. I build web and mobile product interfaces with React, Next.js, and React Native.",
-  location: "Enugu, Nigeria",
+    "Frontend engineer in Nigeria. I build web and mobile product interfaces with React, Next.js, and React Native.",
+  location: "Nigeria",
   email: "ugwukasiep@gmail.com",
   twitterHandle: "@UgwuKasie",
-  resumeUrl:
-    "https://www.canva.com/design/DAFfI894efQ/i53zZCtlSYpgnqI5QHHQHA/view?utm_content=DAFfI894efQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink",
+  resumeUrl: "/kasie-ugwu-cv.pdf",
   url: resolveSiteUrl(),
   ogImage: "/images/people/kassy.jpg",
   ogImageWidth: 810,
@@ -37,7 +36,6 @@ export const site = {
     "React",
     "Next.js",
     "React Native",
-    "Enugu",
     "Nigeria",
   ],
 } as const;
@@ -71,7 +69,7 @@ export const about = {
   body: [
     "Since 2022 I’ve worked across internships, a React Native product, and a few years at Wicrypt — dashboards, the public site, scan, NFT, and partner surfaces like YelloYfi. I also contributed to OHealth+, and I’m building a shop app for my brother.",
     "I care about how an interface feels as much as how it’s built. That means TypeScript when the surface is complex, tests when the flow can’t fail quietly, and enough structure that the next person (often future me) can change it without guessing.",
-    "I’m based in Enugu. When I’m not in a codebase I keep learning — most recently through the Women in Blockchain Africa mentorship program.",
+    "When I’m not in a codebase I keep learning — most recently through the Women in Blockchain Africa mentorship program.",
   ],
   currently: [
     {

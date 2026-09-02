@@ -102,7 +102,6 @@ export function personJsonLd() {
     image: `${site.url}${site.ogImage}`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Enugu",
       addressCountry: "NG",
     },
     sameAs: socials.map((item) => item.href),

@@ -12,7 +12,7 @@ import { about, experience, site, skills, socials } from "@/lib/content";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 const aboutDescription =
-  "Kasie Ugwu is a frontend engineer in Enugu, Nigeria. She builds web and mobile product interfaces with React, Next.js, and React Native.";
+  "Kasie Ugwu is a frontend engineer in Nigeria. She builds web and mobile product interfaces with React, Next.js, and React Native.";
 
 export const metadata: Metadata = pageMetadata({
   title: "About",
@@ -38,7 +38,7 @@ export default function AboutPage() {
             </p>
             <h1 className="mt-3 font-heading text-4xl tracking-tight sm:text-5xl">
               {site.name}.{" "}
-              <span className="text-muted-foreground">I live in Enugu.</span>
+              <span className="text-muted-foreground">I build for web and mobile.</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               {about.intro}

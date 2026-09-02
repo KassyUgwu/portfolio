@@ -13,7 +13,8 @@ function isAllowedHref(href: string) {
   return (
     href.startsWith("https://") ||
     href.startsWith("http://") ||
-    href.startsWith("mailto:")
+    href.startsWith("mailto:") ||
+    href.startsWith("/")
   );
 }
 
