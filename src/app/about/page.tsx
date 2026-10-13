@@ -31,12 +31,12 @@ export default function AboutPage() {
         ])}
       />
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-          <Reveal>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+          <Reveal className="min-w-0 [overflow-wrap:anywhere]">
             <p className="text-xs font-medium tracking-[0.18em] text-primary uppercase">
               About
             </p>
-            <h1 className="mt-3 font-heading text-4xl tracking-tight sm:text-5xl">
+            <h1 className="mt-3 font-heading text-4xl tracking-tight [overflow-wrap:anywhere] sm:text-5xl">
               {site.name}.{" "}
               <span className="text-muted-foreground">I build for web and mobile.</span>
             </h1>
@@ -49,20 +49,17 @@ export default function AboutPage() {
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={`mailto:${site.email}`}>{site.email}</ButtonLink>
+              <ButtonLink href={`mailto:${site.email}`} className="h-auto min-h-8 max-w-full whitespace-normal py-2 text-center [overflow-wrap:anywhere]">{site.email}</ButtonLink>
               <ButtonLink
                 href={site.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 variant="outline"
               >
                 Resume
-                <ArrowUpRight className="size-4" />
               </ButtonLink>
             </div>
           </Reveal>
 
-          <Reveal delay={80} className="lg:pt-10">
+          <Reveal delay={80} className="min-w-0 lg:pt-10">
             <div className="relative mx-auto aspect-4/5 max-w-sm overflow-hidden rounded-2xl bg-muted lg:mx-0">
               <Image
                 src="/images/people/kassy.jpg"
@@ -88,7 +85,7 @@ export default function AboutPage() {
               {about.strengths.map((item) => (
                 <li
                   key={item.title}
-                  className="rounded-2xl border border-border/80 bg-card p-6"
+                  className="min-w-0 rounded-2xl border border-border/80 bg-card p-6 [overflow-wrap:anywhere]"
                 >
                   <h3 className="font-heading text-xl">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -107,10 +104,10 @@ export default function AboutPage() {
               {experience.map((role) => (
                 <li
                   key={`${role.company}-${role.period}`}
-                  className="grid gap-4 border-t border-border py-10 md:grid-cols-[11rem_1fr]"
+                  className="grid gap-4 border-t border-border py-10 [overflow-wrap:anywhere] md:grid-cols-[11rem_minmax(0,1fr)]"
                 >
                   <p className="text-sm text-muted-foreground">{role.period}</p>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-lg font-medium">
                       {role.title}{" "}
                       <span className="text-primary">
@@ -119,7 +116,7 @@ export default function AboutPage() {
                             href={role.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline-offset-4 hover:underline"
+                            className="underline underline-offset-4 hover:no-underline"
                           >
                             @ {role.company}
                           </a>
@@ -143,9 +140,11 @@ export default function AboutPage() {
                     </ul>
                     <ul className="mt-4 flex flex-wrap gap-1.5">
                       {role.stack.map((item) => (
-                        <Badge key={item} variant="outline">
-                          {item}
-                        </Badge>
+                        <li key={item} className="min-w-0">
+                          <Badge variant="outline" className="h-auto min-h-5 max-w-full whitespace-normal [overflow-wrap:anywhere]">
+                            {item}
+                          </Badge>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -158,8 +157,8 @@ export default function AboutPage() {
         <section className="mt-8 grid gap-12 border-t border-border py-16 md:grid-cols-2">
           <Reveal>
             <h2 className="font-heading text-3xl tracking-tight">Education</h2>
-            <p className="mt-4 font-medium">{about.education.credential}</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="mt-4 font-medium [overflow-wrap:anywhere]">{about.education.credential}</p>
+            <p className="text-sm text-muted-foreground [overflow-wrap:anywhere]">
               {about.education.school}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -202,7 +201,7 @@ export default function AboutPage() {
             </div>
             <p className="mt-12 text-sm text-muted-foreground">
               Looking for someone to build or tighten a product UI?{" "}
-              <Link href="/work" className="text-foreground underline-offset-4 hover:underline">
+              <Link href="/work" className="text-foreground underline underline-offset-4 hover:no-underline">
                 Look at the work
               </Link>{" "}
               or email me.
@@ -216,7 +215,7 @@ export default function AboutPage() {
 
 function SkillColumn({ title, items }: { title: string; items: string[] }) {
   return (
-    <div>
+    <div className="min-w-0 [overflow-wrap:anywhere]">
       <h3 className="text-xs font-medium tracking-[0.16em] text-primary uppercase">
         {title}
       </h3>

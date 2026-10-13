@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ButtonLink } from "@/components/button-link";
+import { BrandMark } from "@/components/brand-mark";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -27,9 +28,64 @@ const navClassName = (active: boolean, compact: boolean) =>
       : "text-muted-foreground hover:text-foreground",
   );
 
+const navigationItems = [
+  { label: "Home", href: "/" },
+  ...nav,
+  { label: "Resume", href: site.resumeUrl },
+];
+
+function NavigationLinks({
+  pathname,
+  compact,
+  includeHome,
+  onNavigate,
+}: {
+  pathname: string;
+  compact: boolean;
+  includeHome: boolean;
+  onNavigate?: () => void;
+}) {
+  return navigationItems
+    .filter((item) => includeHome || item.href !== "/")
+    .map((item) => {
+      const active = pathIsActive(pathname, item.href);
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          onClick={onNavigate}
+          aria-current={active ? "page" : undefined}
+          className={navClassName(active, compact)}
+        >
+          {item.label}
+        </Link>
+      );
+    });
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    // Base UI gives WebKit focus guards role="button" for VoiceOver navigation.
+    // Name those otherwise invisible controls when the mobile dialog is open.
+    const labelGuards = () => {
+      document.querySelectorAll('[data-base-ui-focus-guard][role="button"]')
+        .forEach((guard) => guard.setAttribute("aria-label", "Navigation dialog boundary"));
+    };
+    labelGuards();
+    const observer = new MutationObserver(labelGuards);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["role"],
+    });
+    return () => observer.disconnect();
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
@@ -37,38 +93,19 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label={`${site.name}, home`}
-          className="group flex items-center gap-2.5 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="group flex items-center gap-3 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          <span className="flex size-8 items-center justify-center rounded-full border border-primary/30 font-heading text-sm text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-            KU
+          <BrandMark />
+          <span className="hidden font-heading text-lg tracking-tight min-[360px]:inline min-[420px]:hidden">
+            {site.firstName}
           </span>
-          <span className="font-heading text-lg tracking-tight">
+          <span className="hidden font-heading text-lg tracking-tight min-[420px]:inline">
             {site.name}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
-          {nav.map((item) => {
-            const active = pathIsActive(pathname, item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={navClassName(active, true)}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <a
-            href={site.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={navClassName(false, true)}
-          >
-            Resume
-          </a>
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          <NavigationLinks pathname={pathname} compact includeHome={false} />
           <div className="ml-2 flex items-center gap-1">
             <ThemeToggle />
             <ButtonLink href={`mailto:${site.email}`} size="sm">
@@ -77,12 +114,12 @@ export function SiteHeader() {
           </div>
         </nav>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <ThemeToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               nativeButton
-              className={buttonVariants({ variant: "ghost", size: "icon-sm" })}
+              className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "client-menu-trigger")}
               aria-label="Open menu"
             >
               <Menu />
@@ -94,36 +131,12 @@ export function SiteHeader() {
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4" aria-label="Mobile">
-                <Link
-                  href="/"
-                  onClick={() => setOpen(false)}
-                  aria-current={pathIsActive(pathname, "/") ? "page" : undefined}
-                  className={navClassName(pathIsActive(pathname, "/"), false)}
-                >
-                  Home
-                </Link>
-                {nav.map((item) => {
-                  const active = pathIsActive(pathname, item.href);
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      aria-current={active ? "page" : undefined}
-                      className={navClassName(active, false)}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-                <a
-                  href={site.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={navClassName(false, false)}
-                >
-                  Resume
-                </a>
+                <NavigationLinks
+                  pathname={pathname}
+                  compact={false}
+                  includeHome
+                  onNavigate={() => setOpen(false)}
+                />
                 <a
                   href={`mailto:${site.email}`}
                   className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -135,6 +148,12 @@ export function SiteHeader() {
           </Sheet>
         </div>
       </div>
+      <noscript>
+        <style>{".client-menu-trigger { display: none; }"}</style>
+        <nav aria-label="Primary navigation without JavaScript" className="flex flex-wrap gap-x-5 gap-y-2 border-t border-border px-5 py-3 text-sm lg:hidden">
+          {navigationItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+        </nav>
+      </noscript>
     </header>
   );
 }

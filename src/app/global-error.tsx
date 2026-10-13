@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 
-import { ButtonLink } from "@/components/button-link";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 import "./globals.css";
 
@@ -16,6 +15,7 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error(error);
+    document.getElementById("global-error-heading")?.focus();
   }, [error]);
 
   return (
@@ -25,7 +25,7 @@ export default function GlobalError({
           <p className="text-xs font-medium tracking-[0.18em] text-primary uppercase">
             Error
           </p>
-          <h1 className="mt-3 font-heading text-4xl tracking-tight">
+          <h1 id="global-error-heading" tabIndex={-1} className="mt-3 font-heading text-4xl tracking-tight">
             Something went wrong.
           </h1>
           <p className="mt-4 max-w-md text-muted-foreground">
@@ -33,9 +33,11 @@ export default function GlobalError({
           </p>
           <div className="mt-8 flex gap-3">
             <Button onClick={() => retry()}>Try again</Button>
-            <ButtonLink href="/" variant="outline">
+            {/* The root layout may have failed, so use a full navigation here. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a href="/" className={buttonVariants({ variant: "outline" })}>
               Home
-            </ButtonLink>
+            </a>
           </div>
         </main>
       </body>

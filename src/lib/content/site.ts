@@ -25,7 +25,8 @@ export const site = {
   location: "Nigeria",
   email: "ugwukasiep@gmail.com",
   twitterHandle: "@UgwuKasie",
-  resumeUrl: "/kasie-ugwu-cv.pdf",
+  resumeUrl: "/resume",
+  resumePdfUrl: "/kasie-ugwu-cv.pdf",
   url: resolveSiteUrl(),
   ogImage: "/images/people/kassy.jpg",
   ogImageWidth: 810,
@@ -77,12 +78,12 @@ export const about = {
       detail: "Software developer on web and product UI",
     },
     {
-      label: "Sales Tracker",
-      detail: "A shop app for my brother, with a website planned next",
+      label: "Tally Link",
+      detail: "Building a shop app for my brother, with a companion storefront in progress",
     },
     {
-      label: "WIBA",
-      detail: "Blockchain development mentorship, Cohort 2.0",
+      label: "AI & automation",
+      detail: "Learning how to build with AI and automate useful workflows",
     },
   ],
   education: {

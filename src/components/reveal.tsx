@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+import styles from "./reveal.module.css";
 
 export function Reveal({
   children,
@@ -25,7 +26,8 @@ export function Reveal({
     ).matches;
 
     if (reduceMotion || !("IntersectionObserver" in window)) {
-      return;
+      const frame = window.requestAnimationFrame(() => setEntered(true));
+      return () => window.cancelAnimationFrame(frame);
     }
 
     const observer = new IntersectionObserver(
@@ -46,7 +48,7 @@ export function Reveal({
     <div
       ref={ref}
       className={cn(
-        entered && "motion-safe:animate-[rise_0.7s_ease-out]",
+        entered && styles.entered,
         className,
       )}
       style={entered ? { animationDelay: `${delay}ms` } : undefined}

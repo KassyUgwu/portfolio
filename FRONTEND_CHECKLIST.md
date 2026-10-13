@@ -1,0 +1,31 @@
+# Frontend engineering checklist — portfolio
+
+Reviewed 13 October 2026 against the full original review. Status describes verified evidence, not a promise of future work. This repository is a static Next.js 16, TypeScript, and Tailwind portfolio with local typed content; it has no portfolio API, authentication, or database.
+
+| Area | Status | Evidence | Remaining gap or action |
+| --- | --- | --- | --- |
+| Design accuracy | Cannot verify | Home, Work, About, Résumé, and case-study routes exist. The owner confirmed there is no formal design reference. | Provide intended screenshots or an acceptance list if visual fidelity needs grading. |
+| Semantic HTML and CSS | Done | `src/app/layout.tsx` provides landmarks and skip link; routes use headings, articles, sections, and lists. `globals.css` holds tokens and base styles; component effects live in CSS modules. | Maintain these patterns as pages change. |
+| Responsive layouts and changing content | Done for tested cases | `e2e/smoke.spec.ts` tests Home, Work, OHealth, About, and Résumé at 320, 390, 768, and 1440 px with a long unbroken heading and 200% text; text-spacing checks also pass in Chromium, Firefox, and WebKit. | Physical devices and every possible content edit are not covered. |
+| Loading, empty, error, partial-data, and slow cases | Done for this static site | Content stays visible with JavaScript disabled. Empty work lists have messages, optional project fields are omitted, missing routes return 404, render error boundaries provide recovery, and failed images do not block navigation. No API partial-data state exists. | Revisit if data becomes remote. |
+| Accessibility implementation | Partly done | Skip link, visible focus, dialog focus return, no-JavaScript navigation, reduced motion, an HTML résumé, keyboard tests, and axe-core scans of all routes in both themes pass in three engines. See `ACCESSIBILITY_AUDIT.md`. | Human screen-reader, contrast, and real-device checks remain. |
+| WCAG 2.1 AA audit | Partly done | `ACCESSIBILITY_AUDIT.md` records scope, automated results, and known limitations. | A full human audit against applicable success criteria is still needed. Do not claim WCAG conformance. |
+| Reusable, typed components | Done | `Project` in `src/lib/content/types.ts`; `ProjectCard`, `ButtonLink`, and `Container` have small typed APIs. | Keep APIs small. |
+| Component usage notes and conventions | Done | `README.md` explains content, project images, release steps, `Reveal`, navigation, and test commands. | Update notes when behavior changes. |
+| Duplicated or complex UI | Done for reviewed header | `SiteHeader` uses one `NavigationLinks` renderer for desktop and mobile, with one item list also used by no-JavaScript navigation. | Review again if navigation grows. |
+| API integration, request types, and data states | Done / not applicable | `src/lib/content/projects.ts` holds typed local content. No portfolio API client, route handler, auth, cache, pagination, or optimistic mutation exists. | Discuss contracts only if a backend is introduced. |
+| Performance baseline | Done for local lab measurement | `PERFORMANCE.md` records Lighthouse mobile results for Home, Work, and About on a production build. LCP and CLS are measured; Lighthouse does not supply real-user INP here. | Collect field data if the site has enough traffic and repeat lab runs for trends. |
+| Asset and bundle review | Done for current build | `next/image` uses dimensions/sizes/priority, AVIF/WebP are configured, and the local Lighthouse run reports modern formats and optimized image delivery. `PERFORMANCE.md` records remaining image and unused-JavaScript suggestions. | Investigate those suggestions if later measurements show a problem. |
+| Performance checks in CI | Done as configuration | `.github/workflows/ci.yml` runs `npm run test:perf` and uploads Lighthouse reports. `lighthouserc.cjs` checks CLS and accessibility and warns on LCP. | Confirm the first hosted CI run; local command passed. |
+| Unit, integration, and end-to-end tests | Done for applicable flows | 12 unit tests and 42 Playwright tests passed locally. Browser tests cover routes, keyboard/menu, themes, no JavaScript, broken images, reflow, and automated accessibility. There is no API integration to test. | Add tests for new features rather than duplicating implementation. |
+| CI and build | Partly done | Workflow runs lint, typecheck, unit tests, audit, build, browser tests, and performance collection. Local lint, typecheck, tests, production dependency audit, and default Turbopack production build pass. The latest visible hosted run passed on 2 September 2026, before these changes. | Run the updated workflow on GitHub after release. |
+| Responsive and cross-browser release verification | Partly done | Chromium, Firefox, and WebKit suites pass locally at tested widths, zoom, and text spacing. | Check Safari/Firefox on actual devices and assistive technology before broad release claims. |
+| Deployment and agreed flows | Partly done | Local production build includes OHealth, Tally Link, Life OS, and the new Résumé route. Public Home returned 200 on 13 October 2026, but public `/work/tally-link` returned 404. The owner requested local review before publishing. | After review, commit/deploy this checkout with untracked images, then verify live routes, screenshots, APK, canonical, and sitemap. Provide visual acceptance criteria if desired. |
+| Handoff notes | Done | `README.md`, `BACKLOG.md`, `PERFORMANCE.md`, and `ACCESSIBILITY_AUDIT.md` describe architecture, current limitations, checks, and release walkthrough. | Keep them current with each release. |
+
+## Fix before claiming every row is done
+
+1. Release the tested checkout and media, then verify it on the public domain. The live Tally Link route currently returns 404.
+2. Provide a durable Tally Link distribution link when available. The owner chose to keep the current Expo APK for now; the artifact was previously reported to expire on 23 October 2026.
+3. Complete a human WCAG 2.1 AA audit, including screen-reader and real-device keyboard checks. Automated results are not conformance proof.
+4. Confirm a hosted GitHub Actions run and test physical devices. Provide a visual reference if design accuracy should be assessed.

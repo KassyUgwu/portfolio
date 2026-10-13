@@ -62,10 +62,10 @@ export default async function ProjectPage({ params }: Props) {
           All work
         </Link>
 
-        <p className="mt-10 text-xs font-medium tracking-[0.18em] text-primary uppercase">
+        <p className="mt-10 text-xs font-medium tracking-[0.18em] text-primary uppercase [overflow-wrap:anywhere]">
           {project.eyebrow}
         </p>
-        <h1 className="mt-3 font-heading text-4xl tracking-tight sm:text-6xl">
+        <h1 className="mt-3 font-heading text-4xl tracking-tight [overflow-wrap:anywhere] sm:text-6xl">
           {project.title}
         </h1>
         {project.status && (
@@ -73,35 +73,37 @@ export default async function ProjectPage({ params }: Props) {
             {project.status}
           </p>
         )}
-        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+        <p className="mt-5 text-lg leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
           {project.summary}
         </p>
 
         <dl className="mt-10 grid gap-6 border-y border-border py-6 sm:grid-cols-3">
-          <div>
+          <div className="min-w-0 [overflow-wrap:anywhere]">
             <dt className="text-xs tracking-wide text-muted-foreground uppercase">
               Role
             </dt>
             <dd className="mt-1 text-sm">{project.role}</dd>
           </div>
-          <div>
+          <div className="min-w-0 [overflow-wrap:anywhere]">
             <dt className="text-xs tracking-wide text-muted-foreground uppercase">
               Period
             </dt>
             <dd className="mt-1 text-sm">{project.period}</dd>
           </div>
-          <div>
-            <dt className="text-xs tracking-wide text-muted-foreground uppercase">
-              Stack
-            </dt>
-            <dd className="mt-2 flex flex-wrap gap-1.5">
-              {project.stack.map((item) => (
-                <Badge key={item} variant="outline">
-                  {item}
-                </Badge>
-              ))}
-            </dd>
-          </div>
+          {project.stack.length > 0 && (
+            <div className="min-w-0 [overflow-wrap:anywhere]">
+              <dt className="text-xs tracking-wide text-muted-foreground uppercase">
+                Stack
+              </dt>
+              <dd className="mt-2 flex flex-wrap gap-1.5">
+                {project.stack.map((item) => (
+                  <Badge key={item} variant="outline" className="h-auto min-h-5 max-w-full whitespace-normal [overflow-wrap:anywhere]">
+                    {item}
+                  </Badge>
+                ))}
+              </dd>
+            </div>
+          )}
         </dl>
 
         {project.links.length > 0 && (
@@ -112,6 +114,7 @@ export default async function ProjectPage({ params }: Props) {
                 href={link.href}
                 target="_blank"
                 variant={index === 0 ? "default" : "outline"}
+                className="h-auto min-h-8 max-w-full whitespace-normal py-2 text-center [overflow-wrap:anywhere]"
               >
                 {link.label}
                 <ArrowUpRight className="size-4" />
@@ -141,7 +144,7 @@ export default async function ProjectPage({ params }: Props) {
         {project.problem && (
           <section className="mb-12">
             <h2 className="font-heading text-2xl tracking-tight">The problem</h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
+            <p className="mt-4 leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
               {project.problem}
             </p>
           </section>
@@ -156,7 +159,7 @@ export default async function ProjectPage({ params }: Props) {
               {project.highlights.map((item) => (
                 <li
                   key={item}
-                  className="border-l-2 border-primary/40 pl-4 text-[0.95rem] leading-relaxed text-muted-foreground"
+                  className="border-l-2 border-primary/40 pl-4 text-[0.95rem] leading-relaxed text-muted-foreground [overflow-wrap:anywhere]"
                 >
                   {item}
                 </li>
@@ -167,10 +170,10 @@ export default async function ProjectPage({ params }: Props) {
 
         {project.sections.map((section) => (
           <section key={section.heading} className="mb-12">
-            <h2 className="font-heading text-2xl tracking-tight">
+            <h2 className="font-heading text-2xl tracking-tight [overflow-wrap:anywhere]">
               {section.heading}
             </h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
+            <p className="mt-4 leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
               {section.body}
             </p>
           </section>

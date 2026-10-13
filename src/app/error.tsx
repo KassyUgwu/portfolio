@@ -15,6 +15,7 @@ export default function Error({
 }) {
   useEffect(() => {
     console.error(error);
+    document.getElementById("page-error-heading")?.focus();
   }, [error]);
 
   return (
@@ -22,7 +23,7 @@ export default function Error({
       <p className="text-xs font-medium tracking-[0.18em] text-primary uppercase">
         Error
       </p>
-      <h1 className="mt-3 font-heading text-4xl tracking-tight sm:text-5xl">
+      <h1 id="page-error-heading" tabIndex={-1} className="mt-3 font-heading text-4xl tracking-tight sm:text-5xl">
         Something went wrong.
       </h1>
       <p className="mt-4 max-w-md text-muted-foreground">

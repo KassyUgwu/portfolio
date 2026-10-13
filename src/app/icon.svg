@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .disc { fill: oklch(0.78 0.08 28); }
+      .ink { stroke: oklch(0.18 0.02 28); }
+      .dot { fill: oklch(0.18 0.02 28); }
+    }
+  </style>
+  <circle class="disc" cx="16" cy="16" r="16" fill="#084594"/>
+  <circle class="ink" cx="16" cy="16" r="11.5" stroke="#faf7ef" stroke-width="1" stroke-dasharray="14 60" opacity=".72"/>
+  <circle class="dot" cx="16" cy="4.5" r="2" fill="#faf7ef"/>
+  <path class="ink" d="M12 9v14m9-14-9 7 9 7" stroke="#faf7ef" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

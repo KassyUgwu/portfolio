@@ -57,6 +57,7 @@ export const projects: Project[] = [
     slug: "ohealth",
     title: "OHealth+",
     eyebrow: "Web · Healthcare",
+    status: "Live",
     summary:
       "A digital healthcare platform for booking consultations and lab tests, finding verified professionals, and keeping health records in one place.",
     problem:
@@ -66,11 +67,15 @@ export const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Playwright"],
     featured: true,
     image: {
-      src: "/images/projects/ohealth.svg",
-      alt: "OHealth+ product cover",
+      src: "/images/projects/ohealth.png",
+      alt: "OHealth+ website homepage showing its healthcare app",
     },
-    links: [{ label: "Site", href: "https://dev.ohealthltd.com" }],
+    links: [
+      { label: "Website", href: "https://ohealthltd.com/" },
+      { label: "Dashboard", href: "https://dashboard.ohealthltd.com/" },
+    ],
     highlights: [
+      "Deployed the public website and dashboard",
       "Contributed to the public web experience for patients and professionals",
       "Product story covering consultations, lab partnerships, and health records",
     ],
@@ -81,17 +86,38 @@ export const projects: Project[] = [
       },
       {
         heading: "What I worked on",
-        body: "I contributed to building the website at dev.ohealthltd.com — the public product UI that explains the platform and carries people into joining as a patient or a professional.",
+        body: "I contributed to building the public product UI for OHealth+ — the experience that explains the platform and carries people into joining as a patient or a professional. The public website and dashboard are now deployed and linked here.",
       },
     ],
   },
   {
+    slug: "maka-integrated-technology",
+    title: "Maka Integrated Technology",
+    eyebrow: "Web · Company site",
+    summary: "A technology company site for a team building software, digital products, and health-tech solutions with purpose.",
+    problem: "Maka needed a clear digital home for its work across software development, ICT, data, and digital transformation — with OHealth as a product story inside that larger vision.",
+    role: "Frontend · Contributor",
+    period: "Recent",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    featured: true,
+    image: { src: "/images/projects/maka-integrated.jpg", alt: "Maka Integrated Technology website homepage" },
+    links: [
+      { label: "Website", href: "https://mit-website.pages.dev/" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/makatech" },
+    ],
+    highlights: ["Company website for a software and digital transformation team", "Clearer story for the OHealth product family", "LinkedIn presence included as a live channel"],
+    sections: [
+      { heading: "What it is", body: "Maka Integrated Technology builds software and technology solutions for businesses, organisations, and communities. Its work spans software development, ICT infrastructure, data analytics, and digital transformation." },
+      { heading: "What I worked on", body: "I contributed to the company website experience, helping give the team a clear home online while its product work continues to grow. OHealth is one of the products represented in the wider company story." },
+    ],
+  },
+  {
     slug: "sales-tracker",
-    title: "Sales Tracker",
+    title: "Tally Link",
     eyebrow: "Mobile · In progress",
     status: "In progress",
     summary:
-      "A shop-floor app I’m building for my brother: sales, inventory, device charging, customers, and reports — with a website planned next.",
+      "A shop-floor app I’m building for my brother: sales, inventory, device charging, customers, and reports — with a companion storefront in progress.",
     problem:
       "A small shop needs one place for checkout, charging drop-offs, stock, and staff reports. Spreadsheets and paper don’t keep up when more than one person is on the floor.",
     role: "Design and engineering",
@@ -107,24 +133,61 @@ export const projects: Project[] = [
     ],
     featured: true,
     image: {
-      src: "/images/projects/sales-tracker.svg",
-      alt: "Sales Tracker app cover",
+      src: "/images/projects/tally-link-build.jpg",
+      alt: "Tally Link Expo Android build page",
     },
-    links: [],
+    links: [
+      {
+        label: "Download Android APK",
+        href: "https://expo.dev/artifacts/eas/RTLoyHYCceHpPBZEJYRj3d7tPqhyAuDVOWwcYZp7mdk.apk",
+      },
+    ],
     highlights: [
       "POS checkout, inventory, customers, and role-based staff access",
       "Device charging queue with fees recorded on checkout",
       "Offline-aware flows and reports for the shop floor",
-      "A companion website is planned; it will be linked here when it exists",
+      "A companion storefront is in progress and will be linked here when it is hosted",
     ],
     sections: [
       {
         heading: "What it is",
-        body: "Sales Tracker is a mobile app for running a shop: cart checkout, inventory, device charging, customer records, and reports. It’s built for staff on the floor, not for customers at home. Each person signs in with a role so they only see what they need.",
+        body: "Tally Link is a mobile app for running a shop: cart checkout, inventory, device charging, customer records, and reports. It’s built for staff on the floor, not for customers at home. Each person signs in with a role so they only see what they need.",
       },
       {
         heading: "What I’m building",
-        body: "I’m building this for my brother’s shop. The stack is Expo, TypeScript, NativeWind, Zustand, TanStack Query, and Supabase with row-level security. There’s no custom backend — auth, data, and permissions live in Postgres. A website for the same product is next; this page is already set up so that link can drop in when it’s ready.",
+        body: "I’m building this for my brother’s shop. The stack is Expo, TypeScript, NativeWind, Zustand, TanStack Query, and Supabase with row-level security. There’s no custom backend — auth, data, and permissions live in Postgres. A companion storefront is next; this page is already set up so that link can drop in when it’s ready.",
+      },
+    ],
+  },
+  {
+    slug: "life-os",
+    title: "Life OS",
+    eyebrow: "Web app · Live",
+    status: "Live",
+    summary: "A calm personal operating system for plans, finances, health, learning, and reflections in one place.",
+    problem: "Personal progress is easy to lose across notes, reminders, and disconnected tools. Life OS brings that experience into one focused product surface.",
+    role: "Design and engineering",
+    period: "2026",
+    stack: ["Web app", "Product UI", "Authentication"],
+    featured: true,
+    image: {
+      src: "/images/projects/life-os-home-fd845171.jpg",
+      alt: "Life OS homepage with a daily view preview",
+    },
+    links: [{ label: "Open Life OS", href: "https://life-os-gilt-xi.vercel.app/" }],
+    highlights: [
+      "Live personal operating system experience",
+      "Public landing page introducing the product and its daily view",
+      "Built around making everyday activity easier to see and manage",
+    ],
+    sections: [
+      {
+        heading: "What it is",
+        body: "Life OS is a calm personal operating system for bringing plans, finances, health, learning, and reflections together. Its public homepage introduces the product and previews the daily view before people create an account or log in.",
+      },
+      {
+        heading: "What I built",
+        body: "I designed and built the product experience as a live web app. The portfolio links directly to the deployed product so the interaction and visual direction can be explored in its intended environment.",
       },
     ],
   },
@@ -147,7 +210,7 @@ export const projects: Project[] = [
       "React Navigation",
       "Zod",
     ],
-    featured: true,
+    featured: false,
     image: {
       src: "/images/projects/ayika.svg",
       alt: "Ayika mobile product cover",
