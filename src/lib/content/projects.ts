@@ -138,8 +138,12 @@ export const projects: Project[] = [
     },
     links: [
       {
+        label: "Storefront",
+        href: "https://shop-storefront-kappa.vercel.app/staff",
+      },
+      {
         label: "Download Android APK",
-        href: "https://expo.dev/artifacts/eas/RTLoyHYCceHpPBZEJYRj3d7tPqhyAuDVOWwcYZp7mdk.apk",
+        href: "https://expo.dev/artifacts/eas/6LMd4Bk6-jhtBHB8SJPptGavFjCXXVsnxFJSP4pTF9g.apk",
       },
     ],
     highlights: [
