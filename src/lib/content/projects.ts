@@ -143,7 +143,7 @@ export const projects: Project[] = [
       },
       {
         label: "Download Android APK",
-        href: "https://expo.dev/artifacts/eas/6LMd4Bk6-jhtBHB8SJPptGavFjCXXVsnxFJSP4pTF9g.apk",
+        href: "https://expo.dev/accounts/kassyugwus-team/projects/sales-tracker/builds/84dc9840-f42b-4090-a60f-a42350977d48",
       },
     ],
     highlights: [
